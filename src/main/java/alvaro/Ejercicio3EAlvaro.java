@@ -12,9 +12,6 @@ public class Ejercicio3EAlvaro {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
 
-        //HACER LOS SWITCHES P1,M1 BABABAB
-        //IF ELSE CON LAS OPERACIONES DE O,5 Y 0,66
-        //SOLUCIONAR EL TEXTBLOCK DE RESULTADO
         //VARIABLES
         String opcion;
         String opcionProduct = "";
@@ -83,21 +80,26 @@ public class Ejercicio3EAlvaro {
                                                 || opcionProduct.equalsIgnoreCase("T1")
                                                 || opcionProduct.equalsIgnoreCase("M2")) {
 
-                                            precioVentaUnit = costeProduccion + (costeProduccion * 0.5);
+                                            precioVentaUnit = costeProduccion + 
+                                                    (costeProduccion * 0.5);
                                         } else {
-                                            precioVentaUnit = costeProduccion + (costeProduccion * 0.65);
+                                            precioVentaUnit = costeProduccion + 
+                                                    (costeProduccion * 0.65);
                                         }
 
                                         //OPERACIÓN PARA LOS 2500
-                                        unidadesBeneficio = 2500 / (precioVentaUnit-costeProduccion);
+                                        unidadesBeneficio = 2500 / 
+                                                (precioVentaUnit-costeProduccion);
                                         String resultado = """
-                                                          **********************************
-                                                                         TOTAL
-                                                           -> PRECIO VENTA UNIDAD: %.2f
-                                                           -> COSTE DE PRODUCCIÓN: %.2f
-                                                           -> PARA LLEGAR A 2500€ SE DEBEN VENDER %.2f
-                                                          **********************************
-                                                          """.formatted(precioVentaUnit, costeProduccion, unidadesBeneficio);
+                                      **********************************
+                                                     TOTAL
+                                       -> PRECIO VENTA UNIDAD: %.2f
+                                       -> COSTE DE PRODUCCIÓN: %.2f
+                                       -> PARA LLEGAR A 2500€ SE DEBEN VENDER %.2f
+                                      **********************************
+                                      """.formatted(precioVentaUnit, 
+                                              costeProduccion, 
+                                              unidadesBeneficio);
                                         switch (opcionProduct) {
                                             case "M1" -> {
 
@@ -151,7 +153,8 @@ public class Ejercicio3EAlvaro {
                         || opcionProduct.equalsIgnoreCase("salir")));
             }//PRIMER MENU
             //PRIMER MENU
-        } while (!opcion.equalsIgnoreCase("salir") && (!opcionProduct.equalsIgnoreCase("salir")));
+        } while (!opcion.equalsIgnoreCase("salir") && 
+                (!opcionProduct.equalsIgnoreCase("salir")));
 
     }
 }
