@@ -11,15 +11,13 @@ public class Ejercicio3EAlvaro {
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        //DUDAS
-        //AL ACABAR EL PROGRAMA ME SALEN LOS MENUS (ANTES DE METER EL SWITCH YA NS LO Q SALE)
-        //AL TENER EL SWITCH NO PUEDO CONTROLAR Q SE ESCRIBA BIEN EL COD DE PRODUCTO A NO SER QUE HAGA DOS DE CADA "m1" Y "M1" CON LAS MISMAS OPERACIONES
-        //NO HE COMPROBADO Q LOS CALCULOS SEAN CORRECTOS, CONFIO EN DIOS 
 
+        //HACER LOS SWITCHES P1,M1 BABABAB
+        //IF ELSE CON LAS OPERACIONES DE O,5 Y 0,66
+        //SOLUCIONAR EL TEXTBLOCK DE RESULTADO
         //VARIABLES
         String opcion;
-        String opcionProduct;
-
+        String opcionProduct = "";
         double costeManoObra;
         double costeProduccion;
         double materiaPrima;
@@ -27,7 +25,7 @@ public class Ejercicio3EAlvaro {
         double unidadesBeneficio;
         String menu = """
                       **********************************
-                        -> CALCULOS VIABILIDAD PRODUCTOS
+                        -> INICIAR PROGRAMA
                         -> SALIR
                       **********************************
                       """;
@@ -40,7 +38,8 @@ public class Ejercicio3EAlvaro {
                         T1 -> Turrón de chocolate
                         T2 -> Turrón clásico
                         M2 -> Mazapanes
-
+                               
+                        (escriba bien el codigo)
                       **********************************
                       """;
 
@@ -49,12 +48,14 @@ public class Ejercicio3EAlvaro {
             System.out.println(menu);
             opcion = teclado.nextLine();
 
-            if (!opcion.equalsIgnoreCase("salir")) {
+            if (!opcion.equalsIgnoreCase("salir")) { //SALIDA
 
                 //BUCLE PARA VER LOS PRODUCTOS
                 do {
                     System.out.println(menuProductos);
                     opcionProduct = teclado.nextLine();
+                    //PASARLO A MAYUSCULAS PARA Q ENTRE EN EL SWITCH
+                    opcionProduct = opcionProduct.toUpperCase();
                     if (opcionProduct.equalsIgnoreCase("m1")
                             || opcionProduct.equalsIgnoreCase("p1")
                             || opcionProduct.equalsIgnoreCase("t1")
@@ -63,97 +64,94 @@ public class Ejercicio3EAlvaro {
 
                         //BUCLE PARA CONTROLAR LA MATERIA PRIMA
                         do {
-                            System.out.println("INDIQUE EL PRECIO DE LA MATERIA PRIMA");
+                            System.out.println("\nINDIQUE EL PRECIO DE LA MATERIA PRIMA");
                             materiaPrima = teclado.nextDouble();
 
                             if (materiaPrima >= 0.1 && materiaPrima <= 1) {
 
                                 //BUCLE COSTE MANO DE OBRA
                                 do {
-                                    System.out.println("INDIQUE EL COSTE DE LA MANO DE OBRA");
+                                    System.out.println("\nINDIQUE EL COSTE DE LA MANO DE OBRA");
                                     costeManoObra = teclado.nextDouble();
 
                                     if (costeManoObra >= 0.5 && costeManoObra <= 0.9) {
+                                        //OPERACIÓN COSTE DE PRODUCCIÓN
+                                        costeProduccion = materiaPrima + costeManoObra;
 
-                                        switch (opcion) {
+                                        //OPERACIÓN DE PRECIO VENTA UNIDAD
+                                        if (opcionProduct.equalsIgnoreCase("M1")
+                                                || opcionProduct.equalsIgnoreCase("T1")
+                                                || opcionProduct.equalsIgnoreCase("M2")) {
+
+                                            precioVentaUnit = costeProduccion + (costeProduccion * 0.5);
+                                        } else {
+                                            precioVentaUnit = costeProduccion + (costeProduccion * 0.65);
+                                        }
+
+                                        //OPERACIÓN PARA LOS 2500
+                                        unidadesBeneficio = 2500 / (precioVentaUnit-costeProduccion);
+                                        String resultado = """
+                                                          **********************************
+                                                                         TOTAL
+                                                           -> PRECIO VENTA UNIDAD: %.2f
+                                                           -> COSTE DE PRODUCCIÓN: %.2f
+                                                           -> PARA LLEGAR A 2500€ SE DEBEN VENDER %.2f
+                                                          **********************************
+                                                          """.formatted(precioVentaUnit, costeProduccion, unidadesBeneficio);
+                                        switch (opcionProduct) {
                                             case "M1" -> {
 
-                                                costeProduccion = materiaPrima + costeManoObra;
-                                                precioVentaUnit = costeProduccion + (costeProduccion * 0.5);
-                                                System.out.println("Precio venta por unidad: " + precioVentaUnit);
-                                                System.out.println("Coste de producción: " + costeProduccion);
-
-                                                //CALCULO PARA LLEGAR A LOS 2500
-                                                unidadesBeneficio = 2500 / (precioVentaUnit - costeProduccion);
-                                                System.out.println("Para llegar a 2500€ hay que vender" + unidadesBeneficio);
-
+                                                System.out.println(resultado);
+                                                teclado.nextLine();
+                                                break;
                                             }
                                             case "P1" -> {
-                                                costeProduccion = materiaPrima + costeManoObra;
-                                                precioVentaUnit = costeProduccion + (costeProduccion * 0.5);
-                                                System.out.println("Precio venta por unidad: " + precioVentaUnit);
-                                                System.out.println("Coste de producción: " + costeProduccion);
-                                                //CALCULO PARA LLEGAR A LOS 2500
-                                                unidadesBeneficio = 2500 / (precioVentaUnit - costeProduccion);
-                                                System.out.println("Para llegar a 2500€ hay que vender" + unidadesBeneficio);
-
+                                                System.out.println(resultado);
+                                                teclado.nextLine();
+                                                break;
                                             }
                                             case "T1" -> {
-                                                costeProduccion = materiaPrima + costeManoObra;
-                                                precioVentaUnit = costeProduccion + (costeProduccion * 0.65);
-                                                System.out.println("Precio venta por unidad: " + precioVentaUnit);
-                                                System.out.println("Coste de producción: " + costeProduccion);
-                                                //CALCULO PARA LLEGAR A LOS 2500
-                                                unidadesBeneficio = 2500 / (precioVentaUnit - costeProduccion);
-                                                System.out.println("Para llegar a 2500€ hay que vender" + unidadesBeneficio);
-
+                                                System.out.println(resultado);
+                                                teclado.nextLine();
+                                                break;
                                             }
                                             case "T2" -> {
-                                                costeProduccion = materiaPrima + costeManoObra;
-                                                precioVentaUnit = costeProduccion + (costeProduccion * 0.65);
-                                                System.out.println("Precio venta por unidad: " + precioVentaUnit);
-                                                System.out.println("Coste de producción: " + costeProduccion);
-                                                //CALCULO PARA LLEGAR A LOS 2500
-                                                unidadesBeneficio = 2500 / (precioVentaUnit - costeProduccion);
-                                                System.out.println("Para llegar a 2500€ hay que vender" + unidadesBeneficio);
-
+                                                System.out.println(resultado);
+                                                teclado.nextLine();
+                                                break;
                                             }
                                             case "M2" -> {
-                                                costeProduccion = materiaPrima + costeManoObra;
-                                                precioVentaUnit = costeProduccion + (costeProduccion * 0.5);
-                                                System.out.println("Precio venta por unidad: " + precioVentaUnit);
-                                                System.out.println("Coste de producción: " + costeProduccion);
-                                                //CALCULO PARA LLEGAR A LOS 2500
-                                                unidadesBeneficio = 2500 / (precioVentaUnit - costeProduccion);
-                                                System.out.println("Para llegar a 2500€ hay que vender" + unidadesBeneficio);
-
+                                                System.out.println(resultado);
+                                                teclado.nextLine();
+                                                break;
                                             }
 
                                         }
-
+                                        //MANO DE OBRA
                                     } else {
                                         System.out.println("ESCRIBA UN VALOR ENTRE 0.5 Y 0.9\n");
                                     }
+                                    //MANO DE OBRA
                                 } while (costeManoObra < 0.5 || costeManoObra > 0.9);
 
+                                //MATERIA PRIMA    
                             } else {
                                 System.out.println("LA MATERIA PRIMA DEBE ESTAR ENTRE 0.1 Y 1\n");
                             }
-
+                            //MATERIA PRIMA
                         } while (materiaPrima < 0.1 || materiaPrima > 1);
 
-                    } else {
-                        System.out.println("ESCRIBA BIEN EL CODIGO\n");
-                    }
-
+                    } //CODIGOS MENU
+                    //CODIGOS MENU
                 } while (!(opcionProduct.equalsIgnoreCase("m1")
                         || opcionProduct.equalsIgnoreCase("p1")
                         || opcionProduct.equalsIgnoreCase("t1")
                         || opcionProduct.equalsIgnoreCase("t2")
                         || opcionProduct.equalsIgnoreCase("m2")
                         || opcionProduct.equalsIgnoreCase("salir")));
-            }
-        } while (!opcion.equalsIgnoreCase("salir"));
+            }//PRIMER MENU
+            //PRIMER MENU
+        } while (!opcion.equalsIgnoreCase("salir") && (!opcionProduct.equalsIgnoreCase("salir")));
 
     }
 }
